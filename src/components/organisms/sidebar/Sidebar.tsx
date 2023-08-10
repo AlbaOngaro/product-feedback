@@ -8,6 +8,7 @@ export function Sidebar() {
   return (
     <aside className="col-span-12 lg:col-span-3 flex flex-col gap-6">
       <Card
+        as="header"
         style={{ backgroundColor: "#ac99ff" }}
         className="bg-gradient-mesh pt-16"
       >

@@ -1,20 +1,23 @@
 import { twMerge } from "lib/utils/twMerge";
-import { DetailedHTMLProps, HTMLAttributes } from "react";
+import { HTMLAttributes } from "react";
 
-interface Props
-  extends DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> {
+interface Props extends HTMLAttributes<HTMLElement> {
+  as?: keyof HTMLElementTagNameMap;
   className?: string;
   variant?: "light" | "dark";
 }
 
 export function Card({
+  as = "article",
   children,
   className,
   variant = "light",
   ...rest
 }: Props) {
+  const Component = as;
+
   return (
-    <article
+    <Component
       className={twMerge(
         "p-6 rounded-xl",
         {
@@ -26,6 +29,6 @@ export function Card({
       {...rest}
     >
       {children}
-    </article>
+    </Component>
   );
 }
