@@ -20,8 +20,8 @@ export function HomePage() {
       <Sidebar />
       <Container className="flex flex-col gap-6">
         <Header />
-        {suggestions.map(({ id, ...suggestion }) => (
-          <Suggestion key={id} {...suggestion} />
+        {suggestions.map((suggestion) => (
+          <Suggestion key={suggestion.id} {...suggestion} />
         ))}
       </Container>
     </main>
