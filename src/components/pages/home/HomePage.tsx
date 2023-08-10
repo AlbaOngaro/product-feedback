@@ -1,7 +1,18 @@
 import { Container } from "components/atoms/container/Container";
-import { EmptyState } from "components/organisms/empty-state/EmptyState";
 import { Header } from "components/organisms/header/Header";
 import { Sidebar } from "components/organisms/sidebar/Sidebar";
+import { Suggestion } from "components/organisms/suggestion/Suggestion";
+
+const suggestions = [
+  {
+    id: "asdf",
+    title: "Allow image/video upload ",
+    description: "Images and screencasts can enhance comments on solutions.",
+    votes: 0,
+    comments: 0,
+    category: "Feature",
+  },
+];
 
 export function HomePage() {
   return (
@@ -9,7 +20,9 @@ export function HomePage() {
       <Sidebar />
       <Container className="flex flex-col gap-6">
         <Header />
-        <EmptyState />
+        {suggestions.map(({ id, ...suggestion }) => (
+          <Suggestion key={id} {...suggestion} />
+        ))}
       </Container>
     </main>
   );
