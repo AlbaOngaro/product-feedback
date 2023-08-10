@@ -1,8 +1,11 @@
 import { CaretLeftIcon } from "@radix-ui/react-icons";
+import Link from "next/link";
+
 import { Button } from "components/atoms/button/Button";
 import { Card } from "components/atoms/card/Card";
 import { Suggestion } from "components/organisms/suggestion/Suggestion";
-import Link from "next/link";
+import { CommentForm } from "components/organisms/comment-form/CommentForm";
+import { Comment } from "components/organisms/comment/Comment";
 
 const suggestion = {
   id: "asdf",
@@ -34,10 +37,28 @@ export function SuggestionPage() {
           <h6 className="text-[#3A4374] font-bold text-lg">
             {suggestion.comments} Comments
           </h6>
+
+          <Comment
+            author={{
+              avatar: "/images/user-images/image-anne.jpg",
+              fullName: "Elijah Moss",
+              handle: "@hexagon.bestagon",
+            }}
+            contents="Also, please allow styles to be applied based on system preferences. I would love to be able to browse Frontend Mentor in the evening after my device’s dark mode turns on without the bright background it currently has."
+          />
+          <Comment
+            author={{
+              avatar: "/images/user-images/image-anne.jpg",
+              fullName: "Elijah Moss",
+              handle: "@hexagon.bestagon",
+            }}
+            contents="Also, please allow styles to be applied based on system preferences. I would love to be able to browse Frontend Mentor in the evening after my device’s dark mode turns on without the bright background it currently has."
+          />
         </Card>
 
-        <Card>
+        <Card className="flex flex-col gap-4 col-gap">
           <h6 className="text-[#3A4374] font-bold text-lg">Add Comment</h6>
+          <CommentForm />
         </Card>
       </section>
     </main>
