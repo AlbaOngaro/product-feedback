@@ -1,27 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Jost:wght@400;600;700&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --purple: #ad1fea;
+    --royal-blue: #4661e6;
+    --american-blue: #373f68;
+    --white: #fff;
+    --alice-blue: #f2f4ff;
+    --ghost-white: #f7f8fd;
+    --dark-blue-gray: #647196;
+    --vivid-tangerine: #f49f85;
+    --maya-blue: #62bcfa;
   }
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: content-box;
+}
+
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: var(--ghost-white);
+  font-family: "Jost", serif;
 }
