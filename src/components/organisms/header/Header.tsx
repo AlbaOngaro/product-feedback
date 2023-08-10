@@ -1,6 +1,7 @@
 import { StarFilledIcon } from "@radix-ui/react-icons";
 import { Button } from "components/atoms/button/Button";
 import { Card } from "components/atoms/card/Card";
+import { Select } from "components/atoms/select/Select";
 
 export function Header() {
   return (
@@ -8,6 +9,30 @@ export function Header() {
       <h3 className="text-white text-lg	font-bold inline-flex items-center gap-2">
         <StarFilledIcon className="w-6 h-6" />6 Suggestions
       </h3>
+
+      <Select
+        className="ml-8"
+        label="Sort By:"
+        options={[
+          {
+            label: "Most Upvotes",
+            value: "upvotes+",
+          },
+          {
+            label: "Least Upvotes",
+            value: "upvotes-",
+          },
+          {
+            label: "Most Comments",
+            value: "comments+",
+          },
+          {
+            label: "Least Comments",
+            value: "comments-",
+          },
+        ]}
+        onChange={console.debug}
+      />
       <Button className="ml-auto">+ Add Feedback</Button>
     </Card>
   );
