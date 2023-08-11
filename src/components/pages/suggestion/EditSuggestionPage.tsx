@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { suggestion } from "lib/utils/constants";
 import { Card } from "components/atoms/card/Card";
-import { FeedbackForm } from "components/organisms/feedback-form/FeedbackForm";
+import { SuggestionForm } from "components/organisms/suggestion-form/SuggestionForm";
 
 export function EditSuggestionPage() {
   return (
@@ -25,7 +25,7 @@ export function EditSuggestionPage() {
           Editing &ldquo;{suggestion.title}&rdquo;
         </h3>
 
-        <FeedbackForm mode="edit" suggestion={suggestion} />
+        <SuggestionForm mode="edit" suggestion={suggestion} />
       </Card>
     </main>
   );

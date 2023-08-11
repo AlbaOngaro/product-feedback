@@ -36,7 +36,7 @@ export function TextArea({
 
       <Form.Control asChild>
         <textarea
-          className="m-0 resize-none py-4 px-6 bg-ghost-white text-[#3A4374] rounded outline-none transition-all duration-300 focus:outline-none active:outline-none border border-solid border-[transparent] focus:border-royal-blue invalid:border-jasper"
+          className="m-0 resize-none py-3 px-6 bg-ghost-white text-[#3A4374] rounded outline-none transition-all duration-300 focus:outline-none active:outline-none border border-solid border-[transparent] focus:border-royal-blue invalid:border-jasper"
           name={name}
           {...rest}
         />

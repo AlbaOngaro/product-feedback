@@ -29,43 +29,66 @@ interface Option {
 }
 
 interface Props {
+  name: string;
   label: string;
+  description?: string;
   options: Option[];
   onChange: (value: string) => void;
   className?: string;
 }
 
-export function Select({ label, options, className, onChange }: Props) {
+export function Select({
+  name,
+  label,
+  description,
+  options,
+  className,
+  onChange,
+}: Props) {
   return (
-    <RUISelect.Root defaultValue={options[0].value} onValueChange={onChange}>
-      <RUISelect.Trigger
-        className={twMerge(
-          "flex gap-1 text-[#F2F4FE] text-sm font-bold opacity-75 transition-opacity duration-300 hover:opacity-100 focus:outline-none",
-          className,
+    <RUISelect.Root
+      defaultValue={options[0].value}
+      onValueChange={onChange}
+      name={name}
+    >
+      <fieldset className="flex flex-col gap-2">
+        {(label || description) && (
+          <label className="flex flex-col text-sm font-bold text-[#3A4374]">
+            {label}
+            {description && (
+              <small className="text-sm font-normal text-dark-blue-gray">
+                {description}
+              </small>
+            )}
+          </label>
         )}
-        aria-label="Food"
-      >
-        <label className="font-normal">{label}</label>
-        <RUISelect.Value />
-        <RUISelect.Icon>
-          <ChevronDownIcon />
-        </RUISelect.Icon>
-      </RUISelect.Trigger>
-      <RUISelect.Portal>
-        <RUISelect.Content
-          position="popper"
-          sideOffset={16}
-          className="overflow-hidden bg-white rounded-md shadow-xl min-w-[255px]"
+        <RUISelect.Trigger
+          className={twMerge(
+            "group box-border	w-full flex flex-row justify-between items-center m-0 resize-none py-3 px-6 bg-ghost-white text-[#3A4374] rounded outline-none transition-all duration-300 focus:outline-none active:outline-none border border-solid border-[transparent] [&[data-state=open]]:border-royal-blue hover:border-royal-blue",
+            className,
+          )}
         >
-          <RUISelect.Viewport>
-            {options.map((option) => (
-              <SelectItem key={option.value} value={option.value}>
-                {option.label}
-              </SelectItem>
-            ))}
-          </RUISelect.Viewport>
-        </RUISelect.Content>
-      </RUISelect.Portal>
+          <RUISelect.Value />
+          <RUISelect.Icon>
+            <ChevronDownIcon className="transition-all duration-300 rotate-0 group-[&[data-state=open]]:rotate-180" />
+          </RUISelect.Icon>
+        </RUISelect.Trigger>
+        <RUISelect.Portal>
+          <RUISelect.Content
+            position="popper"
+            sideOffset={16}
+            className="overflow-hidden bg-white rounded-md shadow-[0px_10px_40px_-7px_rgba(55,_63,_104,_0.35)] min-w-[255px] w-[var(--radix-select-trigger-width)]"
+          >
+            <RUISelect.Viewport>
+              {options.map((option) => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </RUISelect.Viewport>
+          </RUISelect.Content>
+        </RUISelect.Portal>
+      </fieldset>
     </RUISelect.Root>
   );
 }

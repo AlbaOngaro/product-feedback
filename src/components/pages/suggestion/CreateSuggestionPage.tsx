@@ -2,7 +2,7 @@ import { CaretLeftIcon, PlusIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 
 import { Card } from "components/atoms/card/Card";
-import { FeedbackForm } from "components/organisms/feedback-form/FeedbackForm";
+import { SuggestionForm } from "components/organisms/suggestion-form/SuggestionForm";
 
 export function CreateSuggestionPage() {
   return (
@@ -24,7 +24,7 @@ export function CreateSuggestionPage() {
           Create New Feedback
         </h3>
 
-        <FeedbackForm
+        <SuggestionForm
           mode="create"
           suggestion={{
             title: "",

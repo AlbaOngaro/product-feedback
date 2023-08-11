@@ -1,7 +1,7 @@
 import { StarFilledIcon } from "@radix-ui/react-icons";
 import { Button } from "components/atoms/button/Button";
 import { Card } from "components/atoms/card/Card";
-import { Select } from "components/atoms/select/Select";
+import { Dropdown } from "components/atoms/dropdown/Dropdown";
 import { suggestions } from "lib/utils/constants";
 import { useRouter } from "next/router";
 
@@ -15,7 +15,7 @@ export function Header() {
         {suggestions.length} Suggestions
       </h3>
 
-      <Select
+      <Dropdown
         className="ml-8"
         label="Sort By:"
         options={[

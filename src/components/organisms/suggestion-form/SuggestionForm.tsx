@@ -1,6 +1,7 @@
 import * as Form from "@radix-ui/react-form";
 import { Button } from "components/atoms/button/Button";
 import { Input } from "components/atoms/input/Input";
+import { Select } from "components/atoms/select/Select";
 import { TextArea } from "components/atoms/textarea/TextArea";
 import { Suggestion } from "lib/types";
 
@@ -9,7 +10,7 @@ interface Props {
   suggestion: Pick<Suggestion, "title" | "category" | "state" | "description">;
 }
 
-export function FeedbackForm({ mode, suggestion }: Props) {
+export function SuggestionForm({ mode, suggestion }: Props) {
   return (
     <Form.Root
       className="flex flex-col gap-6"
@@ -22,18 +23,42 @@ export function FeedbackForm({ mode, suggestion }: Props) {
         value={suggestion.title}
       />
 
-      <Input
+      <Select
         name="category"
         label="Category"
         description="Choose a category for your feedback"
-        value={suggestion.category}
+        options={[
+          {
+            label: "UX",
+            value: "ux",
+          },
+          {
+            label: "UI",
+            value: "ui",
+          },
+        ]}
+        onChange={console.debug}
       />
 
-      <Input
+      <Select
         name="state"
         label="Status"
         description="Change feedback state"
-        value={suggestion.state}
+        options={[
+          {
+            label: "Planned",
+            value: "planned",
+          },
+          {
+            label: "In-Progress",
+            value: "in-progress",
+          },
+          {
+            label: "Live",
+            value: "live",
+          },
+        ]}
+        onChange={console.debug}
       />
 
       <TextArea

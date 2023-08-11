@@ -19,7 +19,10 @@ export function Suggestion({
   return (
     <Link href={`/suggestions/${id}`}>
       <Card className="group grid grid-cols-[40px_minmax(0,_1fr)_44px] gap-10">
-        <button className="h-fit flex flex-col items-center justify-center py-1.5 px-4	bg-alice-blue text-[#3A4374] font-semibold text-xs rounded-lg cursor-pointer transition-all duration-300 hover:bg-[#CFD7FF] active:bg-royal-blue active:text-white">
+        <button
+          onClick={(e) => e.preventDefault()}
+          className="h-fit flex flex-col items-center justify-center py-1.5 px-4	bg-alice-blue text-[#3A4374] font-semibold text-xs rounded-lg cursor-pointer transition-all duration-300 hover:bg-[#CFD7FF] active:bg-royal-blue active:text-white"
+        >
           <ChevronUpIcon className="text-royal-blue" />
           <span className="text-sm	font-bold">{votes}</span>
         </button>
