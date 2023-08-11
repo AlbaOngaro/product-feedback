@@ -5,7 +5,7 @@ export const suggestion: Suggestion = {
   title: "Allow image/video upload ",
   description: "Images and screencasts can enhance comments on solutions.",
   votes: 0,
-  state: "Planned",
+  state: "In-Progress",
   comments: [
     {
       parentId: null,

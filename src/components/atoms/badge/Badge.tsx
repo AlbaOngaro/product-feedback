@@ -1,8 +1,10 @@
 import { twMerge } from "lib/utils/twMerge";
 import { PropsWithChildren } from "react";
 
+export type Variant = "danger" | "primary" | "info";
+
 interface Props extends PropsWithChildren {
-  variant?: "danger" | "primary" | "info";
+  variant?: Variant;
   className?: string;
 }
 
