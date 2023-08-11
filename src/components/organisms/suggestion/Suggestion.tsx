@@ -1,16 +1,12 @@
 import { ChatBubbleIcon, ChevronUpIcon } from "@radix-ui/react-icons";
-import { Card } from "components/atoms/card/Card";
-import { Tag } from "components/atoms/tag/Tag";
 import Link from "next/link";
 
-interface Props {
-  id: string;
-  title: string;
-  description: string;
-  category: string;
-  votes: number;
-  comments: number;
-}
+import { Card } from "components/atoms/card/Card";
+import { Tag } from "components/atoms/tag/Tag";
+
+import { Suggestion as SuggestionI } from "lib/types";
+
+type Props = SuggestionI;
 
 export function Suggestion({
   id,
@@ -36,7 +32,7 @@ export function Suggestion({
         </div>
 
         <span className="flex items-center gap-2 text-[#3A4374]">
-          <ChatBubbleIcon /> <strong>{comments}</strong>
+          <ChatBubbleIcon /> <strong>{comments.length}</strong>
         </span>
       </Card>
     </Link>
