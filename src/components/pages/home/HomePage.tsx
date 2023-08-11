@@ -3,16 +3,7 @@ import { Header } from "components/organisms/header/Header";
 import { Sidebar } from "components/organisms/sidebar/Sidebar";
 import { Suggestion } from "components/organisms/suggestion/Suggestion";
 
-const suggestions = [
-  {
-    id: "asdf",
-    title: "Allow image/video upload ",
-    description: "Images and screencasts can enhance comments on solutions.",
-    votes: 0,
-    comments: 0,
-    category: "Feature",
-  },
-];
+import { suggestions } from "lib/utils/constants";
 
 export function HomePage() {
   return (

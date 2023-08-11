@@ -1,3 +1,5 @@
+export type State = "Planned" | "In-Progress" | "Live";
+
 export interface Comment {
   id: string;
   parentId: string | null;
@@ -11,6 +13,7 @@ export interface Comment {
 
 export interface Suggestion {
   id: string;
+  state: State;
   title: string;
   description: string;
   category: string;

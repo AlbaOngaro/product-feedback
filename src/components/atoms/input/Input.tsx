@@ -17,22 +17,23 @@ export function Input({
   className,
   ...rest
 }: Props) {
+  console.debug(label, description);
+
   return (
     <Form.Field
       className={twMerge("flex flex-col gap-2", className)}
       name={name}
     >
-      {label ||
-        (description && (
-          <Form.Label className="flex flex-col text-sm font-bold text-[#3A4374]">
-            {label}
-            {description && (
-              <small className="text-sm font-normal text-dark-blue-gray">
-                {description}
-              </small>
-            )}
-          </Form.Label>
-        ))}
+      {(label || description) && (
+        <Form.Label className="flex flex-col text-sm font-bold text-[#3A4374]">
+          {label}
+          {description && (
+            <small className="text-sm font-normal text-dark-blue-gray">
+              {description}
+            </small>
+          )}
+        </Form.Label>
+      )}
 
       <Form.Control asChild>
         <input

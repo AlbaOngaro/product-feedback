@@ -1,8 +1,11 @@
 import { Button } from "components/atoms/button/Button";
 import { Card } from "components/atoms/card/Card";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 export function EmptyState() {
+  const router = useRouter();
+
   return (
     <Card className="flex flex-col justify-center items-center py-28">
       <picture className="block relative w-32	h-32">
@@ -20,7 +23,9 @@ export function EmptyState() {
         Got a suggestion? Found a bug that needs to be squashed? We love hearing
         about new ideas to improve our app.
       </p>
-      <Button>+ Add Feedback</Button>
+      <Button onClick={() => router.push("/suggestions/create")}>
+        + Add Feedback
+      </Button>
     </Card>
   );
 }
