@@ -59,14 +59,7 @@ export default async function handler(
     }
     case "POST": {
       try {
-        const [response] = await surreal.create("suggestion", {
-          state: "Planned",
-          title: "Test",
-          description: "testing",
-          category: "category:ux",
-          votes: ["user:dx05rr6r5kkcily6fkpe"],
-        });
-
+        const [response] = await surreal.create("suggestion", req.body);
         res.json(response);
         break;
       } catch (error: unknown) {

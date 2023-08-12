@@ -1,9 +1,12 @@
 import * as Form from "@radix-ui/react-form";
+
 import { Button } from "components/atoms/button/Button";
 import { Input } from "components/atoms/input/Input";
 import { Select } from "components/atoms/select/Select";
 import { TextArea } from "components/atoms/textarea/TextArea";
+
 import { Suggestion } from "lib/types";
+import { useCategories } from "lib/hooks/useCategories";
 
 interface Props {
   mode: "edit" | "create";
@@ -11,6 +14,8 @@ interface Props {
 }
 
 export function SuggestionForm({ mode, suggestion }: Props) {
+  const { data: categories } = useCategories();
+
   return (
     <Form.Root
       className="flex flex-col gap-6"
@@ -23,22 +28,18 @@ export function SuggestionForm({ mode, suggestion }: Props) {
         value={suggestion.title}
       />
 
-      <Select
-        name="category"
-        label="Category"
-        description="Choose a category for your feedback"
-        options={[
-          {
-            label: "UX",
-            value: "ux",
-          },
-          {
-            label: "UI",
-            value: "ui",
-          },
-        ]}
-        onChange={console.debug}
-      />
+      {categories && (
+        <Select
+          name="category"
+          label="Category"
+          description="Choose a category for your feedback"
+          options={categories.map((category) => ({
+            label: category.label,
+            value: category.id,
+          }))}
+          onChange={console.debug}
+        />
+      )}
 
       <Select
         name="state"

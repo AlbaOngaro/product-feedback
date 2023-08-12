@@ -47,7 +47,7 @@ export function Select({
 }: Props) {
   return (
     <RUISelect.Root
-      defaultValue={options[0].value}
+      defaultValue={options[0]?.value}
       onValueChange={onChange}
       name={name}
     >

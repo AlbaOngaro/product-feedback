@@ -13,12 +13,17 @@ export interface Comment {
   contents: string;
 }
 
+export interface Category {
+  id: string;
+  label: string;
+}
+
 export interface Suggestion {
   id: string;
   state: State;
   title: string;
   description: string;
-  category: string;
+  category: Category["label"];
   votes: User[];
   comments: Comment[];
 }

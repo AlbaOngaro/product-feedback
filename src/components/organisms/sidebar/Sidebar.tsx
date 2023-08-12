@@ -3,8 +3,11 @@ import Link from "next/link";
 import { Badge } from "components/atoms/badge/Badge";
 import { Card } from "components/atoms/card/Card";
 import { Tag } from "components/atoms/tag/Tag";
+import { useCategories } from "lib/hooks/useCategories";
 
 export function Sidebar() {
+  const { data: categories } = useCategories();
+
   return (
     <aside className="col-span-12 lg:col-span-3 flex flex-col gap-6">
       <Card
@@ -16,10 +19,18 @@ export function Sidebar() {
         <p className="text-white ">Feedback Board</p>
       </Card>
       <Card className="flex flex-row flex-wrap gap-x-2 gap-y-4">
-        <Tag defaultChecked name="All" value="all" />
-        <Tag name="UX" value="ux" />
-        <Tag name="UI" value="ui" />
-        <Tag name="Enhancement" value="enhancement" />
+        {categories && (
+          <>
+            <Tag defaultChecked name="All" value="all" />
+            {categories.map((category) => (
+              <Tag
+                key={category.id}
+                name={category.label}
+                value={category.id}
+              />
+            ))}
+          </>
+        )}
       </Card>
 
       <Card>
