@@ -20,6 +20,10 @@ export function EditSuggestionPage({ suggestion: fallbackData }: Props) {
     revalidateOnMount: false,
   });
 
+  if (!suggestion) {
+    return null;
+  }
+
   return (
     <main className="h-full w-full max-w-[540px] m-auto py-14 px-9 lg:py-24">
       <header className="flex flex-row justify-between mb-16">
