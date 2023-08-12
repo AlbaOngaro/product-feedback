@@ -1,3 +1,8 @@
-import { ViewSuggestionPage } from "components/pages/suggestion/ViewSuggestionPage";
+import {
+  ViewSuggestionPage,
+  getServerSideProps,
+} from "components/pages/suggestion/ViewSuggestionPage";
+
+export { getServerSideProps };
 
 export default ViewSuggestionPage;

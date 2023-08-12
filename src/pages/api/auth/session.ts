@@ -1,5 +1,7 @@
-import { surreal } from "lib/surreal";
+import { Surreal } from "surrealdb.js";
 import { NextApiRequest, NextApiResponse } from "next";
+
+import { surreal } from "lib/surreal";
 
 export default async function handler(
   req: NextApiRequest,
@@ -14,7 +16,7 @@ export default async function handler(
 
   try {
     await surreal.authenticate(token);
-    const info = await surreal.info();
+    const info = await (surreal as Surreal).info();
     res.json(info);
   } catch (error: unknown) {
     console.error(error);

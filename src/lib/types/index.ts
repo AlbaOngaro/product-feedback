@@ -1,13 +1,15 @@
 export type State = "Planned" | "In-Progress" | "Live";
 
+export interface User {
+  id: string;
+  pass: string;
+  user: string;
+}
+
 export interface Comment {
   id: string;
   parentId: string | null;
-  author: {
-    fullName: string;
-    handle: string;
-    avatar: string;
-  };
+  author: User;
   contents: string;
 }
 
@@ -17,7 +19,7 @@ export interface Suggestion {
   title: string;
   description: string;
   category: string;
-  votes: number;
+  votes: User[];
   comments: Comment[];
 }
 

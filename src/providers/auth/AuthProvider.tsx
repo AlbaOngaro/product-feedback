@@ -8,7 +8,7 @@ import {
 } from "react";
 import { useRouter } from "next/router";
 
-import { Credentials } from "lib/types";
+import { Credentials, User } from "lib/types";
 
 interface AuthContextValue {
   register: (credentials: Credentials) => Promise<unknown>;
@@ -16,7 +16,7 @@ interface AuthContextValue {
   login: (
     credentials: Omit<Credentials, "passwordConfirm">,
   ) => Promise<unknown>;
-  user: Record<string, string> | null;
+  user: User | null;
 }
 
 const AuthContext = createContext<AuthContextValue>({
@@ -29,7 +29,7 @@ const AuthContext = createContext<AuthContextValue>({
 export function AuthProvider({ children }: PropsWithChildren) {
   const router = useRouter();
 
-  const [user, setUser] = useState<Record<string, string> | null>(null);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -38,7 +38,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
       signal: controller.signal,
     })
       .then((res) => res.json())
-      .then((res: Record<string, string>) => {
+      .then((res: User) => {
         setUser(res);
       })
       .catch((error) => {
@@ -51,7 +51,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
         signal: controller.signal,
       })
         .then((res) => res.json())
-        .then((res: Record<string, string>) => {
+        .then((res: User) => {
           setUser(res);
         })
         .catch((error) => {

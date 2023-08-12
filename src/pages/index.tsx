@@ -1,3 +1,5 @@
-import { HomePage } from "components/pages/home/HomePage";
+import { HomePage, getServerSideProps } from "components/pages/home/HomePage";
+
+export { getServerSideProps };
 
 export default HomePage;
