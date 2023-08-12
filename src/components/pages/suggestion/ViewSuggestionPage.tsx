@@ -1,5 +1,4 @@
 import { CaretLeftIcon } from "@radix-ui/react-icons";
-import Link from "next/link";
 import { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
 
 import { Suggestion as SuggestionI } from "lib/types";
@@ -34,12 +33,12 @@ export function ViewSuggestionPage({ suggestion: fallbackData }: Props) {
   return (
     <main className="h-full w-full max-w-[730px] m-auto py-14 px-9 lg:py-24">
       <header className="flex flex-row justify-between mb-6">
-        <Link
-          href="/"
+        <button
+          onClick={() => router.back()}
           className="flex flex-row items-center gap-2 text-dark-blue-gray text-sm	font-bold opacity-100 transition-opacity duration-300 hover:underline hover:opacity-80"
         >
           <CaretLeftIcon /> Go Back
-        </Link>
+        </button>
 
         <Button
           variant="secondary"
