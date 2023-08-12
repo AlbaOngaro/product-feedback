@@ -1,8 +1,10 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import { destroyCookie } from "nookies";
 
 export default async function handler(
   _req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  res.setHeader("set-cookie", "token=;Max-Age=0;path=/").end();
+  destroyCookie({ res }, "token");
+  res.end();
 }

@@ -1,29 +1,30 @@
 import { NextApiHandler } from "next";
+import { setCookie } from "nookies";
 
 import { Credentials } from "lib/types";
-
-import { pb } from "lib/pocketbase";
+import { surreal } from "lib/surreal";
 
 const handler: NextApiHandler = async (req, res) => {
   const credentials = req.body as Credentials;
 
   try {
-    const authData = await pb.collection("users").create(credentials);
+    const token = await surreal.signup({
+      NS: "test",
+      DB: "test",
+      SC: "allusers",
+      user: credentials.email,
+      pass: credentials.password,
+    });
 
-    const cookie = pb.authStore.exportToCookie(
-      {
-        secure: true,
-        sameSite: true,
-        httpOnly: true,
-        path: "/",
-      },
-      "token",
-    );
-
-    res.setHeader("set-cookie", cookie).status(200).json(authData);
+    setCookie({ res }, "token", token, {
+      secure: true,
+      sameSite: true,
+      httpOnly: true,
+      path: "/",
+    });
   } catch (error: unknown) {
     console.error(error);
-    res.status(403);
+    res.status(500);
   }
 
   res.end();

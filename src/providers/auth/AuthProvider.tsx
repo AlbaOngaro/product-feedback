@@ -6,10 +6,9 @@ import {
   useEffect,
   useState,
 } from "react";
-import { RecordAuthResponse, Record } from "pocketbase";
+import { useRouter } from "next/router";
 
 import { Credentials } from "lib/types";
-import { useRouter } from "next/router";
 
 interface AuthContextValue {
   register: (credentials: Credentials) => Promise<unknown>;
@@ -17,23 +16,20 @@ interface AuthContextValue {
   login: (
     credentials: Omit<Credentials, "passwordConfirm">,
   ) => Promise<unknown>;
-  token: string | null;
-  user: Record | null;
+  user: Record<string, string> | null;
 }
 
 const AuthContext = createContext<AuthContextValue>({
   register: () => Promise.resolve(),
   logout: () => Promise.resolve(),
   login: () => Promise.resolve(),
-  token: null,
   user: null,
 });
 
 export function AuthProvider({ children }: PropsWithChildren) {
   const router = useRouter();
 
-  const [token, setToken] = useState<string | null>(null);
-  const [user, setUser] = useState<Record | null>(null);
+  const [user, setUser] = useState<Record<string, string> | null>(null);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -42,13 +38,11 @@ export function AuthProvider({ children }: PropsWithChildren) {
       signal: controller.signal,
     })
       .then((res) => res.json())
-      .then((res: RecordAuthResponse<Record>) => {
-        setToken(res.token);
-        setUser(res.record);
+      .then((res: Record<string, string>) => {
+        setUser(res);
       })
       .catch((error) => {
         console.error(error);
-        setToken(null);
         setUser(null);
       });
 
@@ -57,13 +51,11 @@ export function AuthProvider({ children }: PropsWithChildren) {
         signal: controller.signal,
       })
         .then((res) => res.json())
-        .then((res: RecordAuthResponse<Record>) => {
-          setToken(res.token);
-          setUser(res.record);
+        .then((res: Record<string, string>) => {
+          setUser(res);
         })
         .catch((error) => {
           console.error(error);
-          setToken(null);
           setUser(null);
         });
     }, 1000 * 60);
@@ -77,19 +69,13 @@ export function AuthProvider({ children }: PropsWithChildren) {
   const register = useCallback(
     async (credentials: Credentials) => {
       try {
-        const authData: RecordAuthResponse<Record> = await fetch(
-          "/api/auth/login",
-          {
-            method: "POST",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify(credentials),
+        await fetch("/api/auth/login", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
           },
-        ).then((res) => res.json());
-
-        setToken(authData.token);
-        setUser(authData.record);
+          body: JSON.stringify(credentials),
+        }).then((res) => res.json());
 
         router.push("/");
       } catch (error: unknown) {
@@ -102,19 +88,13 @@ export function AuthProvider({ children }: PropsWithChildren) {
   const login = useCallback(
     async (credentials: Omit<Credentials, "passwordConfirm">) => {
       try {
-        const authData: RecordAuthResponse<Record> = await fetch(
-          "/api/auth/login",
-          {
-            method: "POST",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify(credentials),
+        await fetch("/api/auth/login", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
           },
-        ).then((res) => res.json());
-
-        setToken(authData.token);
-        setUser(authData.record);
+          body: JSON.stringify(credentials),
+        }).then((res) => res.json());
 
         router.push("/");
       } catch (error: unknown) {
@@ -139,7 +119,6 @@ export function AuthProvider({ children }: PropsWithChildren) {
         register,
         logout,
         login,
-        token,
         user,
       }}
     >
