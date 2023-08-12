@@ -27,6 +27,10 @@ export function ViewSuggestionPage({ suggestion: fallbackData }: Props) {
     revalidateOnMount: false,
   });
 
+  if (!suggestion) {
+    return null;
+  }
+
   return (
     <main className="h-full w-full max-w-[730px] m-auto py-14 px-9 lg:py-24">
       <header className="flex flex-row justify-between mb-6">
@@ -49,13 +53,13 @@ export function ViewSuggestionPage({ suggestion: fallbackData }: Props) {
         <Suggestion {...suggestion} />
 
         <Card>
-          <h6 className="text-[#3A4374] font-bold text-lg mb-6">
-            {suggestion.comments.length} Comments
+          <h6 className="text-[#3A4374] font-bold text-lg">
+            {suggestion?.comments?.length || 0} Comments
           </h6>
 
-          {suggestion.comments
-            .filter((comment) => !comment.parentId)
-            .map((comment) => (
+          {suggestion?.comments
+            ?.filter((comment) => !comment.parentId)
+            ?.map((comment) => (
               <Comment
                 key={comment.id}
                 {...comment}
@@ -68,7 +72,7 @@ export function ViewSuggestionPage({ suggestion: fallbackData }: Props) {
 
         <Card className="flex flex-col">
           <h6 className="text-[#3A4374] font-bold text-lg mb-6">Add Comment</h6>
-          <CommentForm />
+          <CommentForm suggestionId={suggestion.id} parentId={null} />
         </Card>
       </section>
     </main>

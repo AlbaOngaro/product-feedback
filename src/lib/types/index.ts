@@ -4,6 +4,7 @@ export interface User {
   id: string;
   pass: string;
   user: string;
+  avatar: string;
 }
 
 export interface Comment {
@@ -11,6 +12,7 @@ export interface Comment {
   parentId: string | null;
   author: User;
   contents: string;
+  suggestion: Suggestion["id"];
 }
 
 export interface Category {
