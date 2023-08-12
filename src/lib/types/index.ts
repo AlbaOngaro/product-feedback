@@ -12,7 +12,6 @@ export interface Comment {
   parentId: string | null;
   author: User;
   contents: string;
-  suggestion: Suggestion["id"];
 }
 
 export interface Category {

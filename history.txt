@@ -10,3 +10,7 @@ DEFINE TABLE comment SCHEMALESS PERMISSIONS FOR select, update, create, delete W
 DEFINE TABLE category SCHEMALESS PERMISSIONS FOR select, update, create, delete WHERE true
 DEFINE TABLE comments SCHEMALESS PERMISSIONS FOR select, update, create, delete WHERE true
 INFO FOR DB;
+infor for db
+INFO FOR DB;
+DEFINE TABLE parent SCHEMALESS PERMISSIONS FOR select, update, create, delete WHERE true
+INFO FOR DB;

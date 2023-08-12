@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Button } from "components/atoms/button/Button";
 import { CommentForm } from "components/organisms/comment-form/CommentForm";
 
-import { Comment as CommentI } from "lib/types";
+import { Comment as CommentI, Suggestion } from "lib/types";
 import { twMerge } from "lib/utils/twMerge";
 import { createAvatar } from "@dicebear/core";
 import { initials } from "@dicebear/collection";
@@ -12,15 +12,17 @@ import { initials } from "@dicebear/collection";
 interface Props extends CommentI {
   comments: CommentI[];
   className?: string;
+  suggestionId: Suggestion["id"];
 }
 
 export function Comment({
+  id,
   parentId,
   contents,
   author,
   comments,
   className,
-  suggestion,
+  suggestionId,
 }: Props) {
   const [isReplying, setIsReplying] = useState(false);
 
@@ -83,19 +85,28 @@ export function Comment({
         <CommentForm
           variant="compact"
           className="col-start-2"
-          suggestionId={suggestion}
-          parentId={parentId}
+          suggestionId={suggestionId}
+          parentId={id}
+          onSubmitted={() => setIsReplying(false)}
         />
       )}
 
-      {comments.map((comment) => (
-        <Comment
-          className="col-start-2 -ml-3 mt-2"
-          key={comment.id}
-          comments={[]}
-          {...comment}
-        />
-      ))}
+      {comments
+        .filter((comment) => comment.parentId === id)
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        .map(({ parentId, ...comment }) => {
+          debugger;
+          return (
+            <Comment
+              className="col-start-2 -ml-3 mt-2"
+              key={comment.id}
+              comments={comments.filter((c) => c.id !== comment.id)}
+              parentId={comment.id}
+              suggestionId={suggestionId}
+              {...comment}
+            />
+          );
+        })}
     </div>
   );
 }

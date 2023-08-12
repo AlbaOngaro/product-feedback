@@ -64,8 +64,9 @@ export function ViewSuggestionPage({ suggestion: fallbackData }: Props) {
                 key={comment.id}
                 {...comment}
                 comments={suggestion.comments.filter(
-                  (c) => c.parentId === comment.id,
+                  (comment) => comment.parentId,
                 )}
+                suggestionId={suggestion.id}
               />
             ))}
         </Card>

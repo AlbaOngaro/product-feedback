@@ -13,6 +13,7 @@ interface Props {
   className?: string;
   suggestionId: Suggestion["id"];
   parentId: Comment["parentId"];
+  onSubmitted?: () => void;
 }
 
 export function CommentForm({
@@ -20,6 +21,7 @@ export function CommentForm({
   className,
   suggestionId,
   parentId,
+  onSubmitted,
 }: Props) {
   const { user } = useAuth();
   const [comment, setComment] = useState("");
@@ -47,6 +49,10 @@ export function CommentForm({
     });
 
     setComment("");
+
+    if (typeof onSubmitted === "function") {
+      onSubmitted();
+    }
   };
 
   return (
