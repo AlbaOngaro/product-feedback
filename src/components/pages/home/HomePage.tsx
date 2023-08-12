@@ -1,4 +1,5 @@
 import { Container } from "components/atoms/container/Container";
+import { EmptyState } from "components/organisms/empty-state/EmptyState";
 import { Header } from "components/organisms/header/Header";
 import { Sidebar } from "components/organisms/sidebar/Sidebar";
 import { Suggestion } from "components/organisms/suggestion/Suggestion";
@@ -25,10 +26,13 @@ export function HomePage({ suggestions: fallbackData }: Props) {
       <Sidebar />
       <Container className="flex flex-col gap-6">
         <Header />
-        {suggestions &&
+        {suggestions.length > 0 ? (
           suggestions.map((suggestion) => (
             <Suggestion key={suggestion.id} {...suggestion} />
-          ))}
+          ))
+        ) : (
+          <EmptyState />
+        )}
       </Container>
     </main>
   );

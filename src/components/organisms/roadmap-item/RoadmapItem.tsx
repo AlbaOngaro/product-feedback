@@ -9,7 +9,7 @@ interface Props {
   suggestion: Suggestion;
 }
 
-function getVariantFromState(state: State): Variant {
+export function getVariantFromState(state: State): Variant {
   switch (state) {
     case "Planned":
       return "danger";
@@ -45,7 +45,7 @@ export function RoadmapItem({ suggestion }: Props) {
       <footer className="flex flex-row justify-between mt-4">
         <button className="h-fit flex flex-row items-center gap-2 py-1.5 px-4	bg-alice-blue text-[#3A4374] font-semibold text-xs rounded-lg cursor-pointer transition-all duration-300 hover:bg-[#CFD7FF] active:bg-royal-blue active:text-white">
           <ChevronUpIcon className="text-royal-blue" />
-          <span className="text-sm	font-bold">{suggestion.votes}</span>
+          <span className="text-sm	font-bold">{suggestion.votes.length}</span>
         </button>
 
         <span className="flex items-center gap-2 text-[#3A4374]">

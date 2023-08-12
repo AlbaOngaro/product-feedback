@@ -4,9 +4,27 @@ import { Badge } from "components/atoms/badge/Badge";
 import { Card } from "components/atoms/card/Card";
 import { Tag } from "components/atoms/tag/Tag";
 import { useCategories } from "lib/hooks/useCategories";
+import { useSuggestions } from "lib/hooks/useSuggestions";
+import { State } from "lib/types";
+import { getVariantFromState } from "components/organisms/roadmap-item/RoadmapItem";
 
 export function Sidebar() {
   const { data: categories } = useCategories();
+  const { data: suggestions } = useSuggestions();
+
+  const roadmap: Record<State, number> = suggestions.reduce<
+    Record<State, number>
+  >(
+    (acc, suggestion) => ({
+      ...acc,
+      [suggestion.state]: (acc[suggestion.state] || 0) + 1,
+    }),
+    {
+      "In-Progress": 0,
+      Live: 0,
+      Planned: 0,
+    } as Record<State, number>,
+  );
 
   return (
     <aside className="col-span-12 lg:col-span-3 flex flex-col gap-6">
@@ -44,21 +62,13 @@ export function Sidebar() {
           </Link>
         </header>
         <ul className="flex flex-col gap-2">
-          <li>
-            <Badge variant="danger">
-              Planned <strong className="ml-auto">2</strong>
-            </Badge>
-          </li>
-          <li>
-            <Badge variant="primary">
-              In-Progress <strong className="ml-auto">2</strong>
-            </Badge>
-          </li>
-          <li>
-            <Badge variant="info">
-              Live <strong className="ml-auto">2</strong>
-            </Badge>
-          </li>
+          {Object.entries(roadmap).map(([key, value]) => (
+            <li key={key}>
+              <Badge variant={getVariantFromState(key as State)}>
+                {key} <strong className="ml-auto">{value}</strong>
+              </Badge>
+            </li>
+          ))}
         </ul>
       </Card>
     </aside>

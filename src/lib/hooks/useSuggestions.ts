@@ -11,7 +11,11 @@ export function useSuggestions(
   const searchParams = useSearchParams();
   const params = searchParams.toString();
 
-  return useSWR<Suggestion[], unknown, ["/api/suggestions", string?]>(
+  const { data = [], ...rest } = useSWR<
+    Suggestion[],
+    unknown,
+    ["/api/suggestions", string?]
+  >(
     ["/api/suggestions", params],
     () =>
       fetch(params ? `/api/suggestions?${params}` : "/api/suggestions").then(
@@ -19,4 +23,9 @@ export function useSuggestions(
       ),
     options,
   );
+
+  return {
+    data,
+    ...rest,
+  };
 }

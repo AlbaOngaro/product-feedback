@@ -28,9 +28,9 @@ export function CreateSuggestionPage() {
           mode="create"
           suggestion={{
             title: "",
+            category: "category:bug",
             state: "Planned",
             description: "",
-            category: "",
           }}
         />
       </Card>

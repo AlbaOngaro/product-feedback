@@ -9,6 +9,7 @@ import { TextArea } from "components/atoms/textarea/TextArea";
 import { State, Suggestion } from "lib/types";
 import { useCategories } from "lib/hooks/useCategories";
 import { useSuggestions } from "lib/hooks/useSuggestions";
+import { useRouter } from "next/router";
 
 const STATES = [
   {
@@ -27,10 +28,11 @@ const STATES = [
 
 interface Props {
   mode: "edit" | "create";
-  suggestion: Suggestion;
+  suggestion: Partial<Suggestion>;
 }
 
 export function SuggestionForm({ mode, suggestion }: Props) {
+  const router = useRouter();
   const { data: categories } = useCategories();
   const { mutate } = useSuggestions();
 
@@ -58,6 +60,12 @@ export function SuggestionForm({ mode, suggestion }: Props) {
         body: JSON.stringify(data),
       });
     });
+
+    if (mode === "create") {
+      return router.push("/");
+    }
+
+    return router.push(`/suggestions/${suggestion.id}`);
   };
 
   const handleDelete = async (e: MouseEvent) => {
@@ -69,6 +77,8 @@ export function SuggestionForm({ mode, suggestion }: Props) {
         method: "DELETE",
       });
     });
+
+    return router.push("/");
   };
 
   return (
@@ -116,7 +126,7 @@ export function SuggestionForm({ mode, suggestion }: Props) {
         onChange={(state) =>
           setData((curr) => ({
             ...curr,
-            state: state as State,
+            state: STATES.find((s) => s.value === state)?.label as State,
           }))
         }
       />
