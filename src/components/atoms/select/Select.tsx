@@ -35,6 +35,7 @@ interface Props {
   options: Option[];
   onChange: (value: string) => void;
   className?: string;
+  defaultValue?: string;
 }
 
 export function Select({
@@ -44,10 +45,11 @@ export function Select({
   options,
   className,
   onChange,
+  defaultValue,
 }: Props) {
   return (
     <RUISelect.Root
-      defaultValue={options[0]?.value}
+      defaultValue={defaultValue || options[0]?.value}
       onValueChange={onChange}
       name={name}
     >

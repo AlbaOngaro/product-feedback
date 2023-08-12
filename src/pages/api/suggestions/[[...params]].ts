@@ -67,6 +67,41 @@ export default async function handler(
         break;
       }
     }
+    case "PATCH": {
+      const params = req.query.params;
+
+      if (params?.length !== 1) {
+        res.status(400).end();
+        break;
+      }
+
+      try {
+        const [response] = await surreal.merge(params[0], req.body);
+
+        res.json(response);
+        break;
+      } catch (error: unknown) {
+        res.status(500).end();
+        break;
+      }
+    }
+    case "DELETE": {
+      const params = req.query.params;
+
+      if (params?.length !== 1) {
+        res.status(400).end();
+        break;
+      }
+
+      try {
+        const [response] = await surreal.delete(params[0]);
+        res.json(response);
+        break;
+      } catch (error: unknown) {
+        res.status(500).end();
+        break;
+      }
+    }
     default:
       res.status(405).end();
       break;
