@@ -1,34 +1,27 @@
+import { Surreal } from "surrealdb.js";
 import { NextApiRequest, NextApiResponse } from "next";
 
-import { pb } from "lib/pocketbase";
+import { surreal } from "lib/surreal";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const cookies = req.headers.cookie;
+  const token = req.cookies["token"];
 
-  if (!cookies) {
+  if (!token) {
     res.status(401).end();
     return;
   }
 
-  pb.authStore.loadFromCookie(cookies, "token");
-
   try {
-    const authData = await pb.collection("users").authRefresh();
-    const cookie = pb.authStore.exportToCookie(
-      {
-        secure: true,
-        sameSite: true,
-        httpOnly: true,
-        path: "/",
-      },
-      "token",
-    );
-    res.setHeader("set-cookie", cookie).status(200).json(authData);
-  } catch (_) {
-    pb.authStore.clear();
-    res.status(401).end();
+    await surreal.authenticate(token);
+    const info = await (surreal as Surreal).info();
+    res.json(info);
+  } catch (error: unknown) {
+    console.error(error);
+    res.status(401);
   }
+
+  res.end();
 }

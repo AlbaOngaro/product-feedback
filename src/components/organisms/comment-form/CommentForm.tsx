@@ -4,20 +4,61 @@ import { FormEventHandler, useState } from "react";
 import { Button } from "components/atoms/button/Button";
 import { TextArea } from "components/atoms/textarea/TextArea";
 import { twMerge } from "lib/utils/twMerge";
+import { Comment, Suggestion } from "lib/types";
+import { useSuggestion } from "lib/hooks/useSuggestion";
+import { useAuth } from "providers/auth/AuthProvider";
 
 interface Props {
   variant?: "full" | "compact";
   className?: string;
-  onSubmit?: FormEventHandler<HTMLFormElement>;
+  suggestionId: Suggestion["id"];
+  parentId: Comment["parentId"];
+  onSubmitted?: () => void;
 }
 
-export function CommentForm({ variant = "full", className, onSubmit }: Props) {
+export function CommentForm({
+  variant = "full",
+  className,
+  suggestionId,
+  parentId,
+  onSubmitted,
+}: Props) {
+  const { user } = useAuth();
   const [comment, setComment] = useState("");
+
+  const { mutate } = useSuggestion(suggestionId);
+
+  const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault();
+
+    await mutate(async ({ id }) => {
+      await fetch("/api/comments", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          contents: comment,
+          suggestion: suggestionId,
+          author: user?.id,
+          parentId,
+        }),
+      });
+
+      return fetch(`/api/suggestions/${id}`).then((res) => res.json());
+    });
+
+    setComment("");
+
+    if (typeof onSubmitted === "function") {
+      onSubmitted();
+    }
+  };
 
   return (
     <Form.Root
       className={twMerge("grid grid-cols-4 gap-4", className)}
-      onSubmit={onSubmit}
+      onSubmit={handleSubmit}
     >
       <TextArea
         className={twMerge({

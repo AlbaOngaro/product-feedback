@@ -1,14 +1,22 @@
 export type State = "Planned" | "In-Progress" | "Live";
 
+export interface User {
+  id: string;
+  pass: string;
+  user: string;
+  avatar: string;
+}
+
 export interface Comment {
   id: string;
   parentId: string | null;
-  author: {
-    fullName: string;
-    handle: string;
-    avatar: string;
-  };
+  author: User;
   contents: string;
+}
+
+export interface Category {
+  id: string;
+  label: string;
 }
 
 export interface Suggestion {
@@ -16,8 +24,8 @@ export interface Suggestion {
   state: State;
   title: string;
   description: string;
-  category: string;
-  votes: number;
+  category: Category["label"];
+  votes: User[];
   comments: Comment[];
 }
 
