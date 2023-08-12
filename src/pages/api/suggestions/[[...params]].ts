@@ -4,6 +4,7 @@ import { surreal } from "lib/surreal";
 import { GET_ALL_SUGGESTIONS } from "lib/queries/GET_ALL_SUGGESTIONS";
 import { GET_SUGGESTION } from "lib/queries/GET_SUGGESTION";
 import { Suggestion } from "lib/types";
+import { replaceVariablesInString } from "lib/utils/replaceVariablesInString";
 
 export default async function handler(
   req: NextApiRequest,
@@ -28,7 +29,17 @@ export default async function handler(
       const params = req.query.params;
 
       if (params?.length !== 1) {
-        const [response] = await surreal.query(GET_ALL_SUGGESTIONS);
+        const { field = "votes", order = "DESC" } = req.query as Record<
+          string,
+          string
+        >;
+
+        const [response] = await surreal.query(
+          replaceVariablesInString(GET_ALL_SUGGESTIONS, {
+            field,
+            order,
+          }),
+        );
 
         if (response.status === "ERR") {
           res.status(500).send(response.detail);

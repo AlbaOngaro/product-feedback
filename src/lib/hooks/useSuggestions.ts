@@ -1,5 +1,6 @@
 import { Suggestion } from "lib/types";
 import useSWR from "swr";
+import { useSearchParams } from "next/navigation";
 import { BareFetcher, PublicConfiguration } from "swr/_internal";
 
 export function useSuggestions(
@@ -7,9 +8,15 @@ export function useSuggestions(
     PublicConfiguration<Suggestion[], unknown, BareFetcher<Suggestion[]>>
   >,
 ) {
-  return useSWR<Suggestion[], unknown, "/api/suggestions">(
-    "/api/suggestions",
-    () => fetch("/api/suggestions").then((res) => res.json()),
+  const searchParams = useSearchParams();
+  const params = searchParams.toString();
+
+  return useSWR<Suggestion[], unknown, ["/api/suggestions", string?]>(
+    ["/api/suggestions", params],
+    () =>
+      fetch(params ? `/api/suggestions?${params}` : "/api/suggestions").then(
+        (res) => res.json(),
+      ),
     options,
   );
 }

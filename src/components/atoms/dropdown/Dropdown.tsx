@@ -33,11 +33,21 @@ interface Props {
   options: Option[];
   onChange: (value: string) => void;
   className?: string;
+  defaultValue?: string;
 }
 
-export function Dropdown({ label, options, className, onChange }: Props) {
+export function Dropdown({
+  label,
+  options,
+  className,
+  onChange,
+  defaultValue,
+}: Props) {
   return (
-    <RUISelect.Root defaultValue={options[0].value} onValueChange={onChange}>
+    <RUISelect.Root
+      defaultValue={defaultValue || options[0].value}
+      onValueChange={onChange}
+    >
       <RUISelect.Trigger
         className={twMerge(
           "flex gap-1 text-[#F2F4FE] text-sm font-bold opacity-75 transition-opacity duration-300 hover:opacity-100 focus:outline-none",

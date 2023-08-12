@@ -6,6 +6,7 @@ import { useSuggestions } from "lib/hooks/useSuggestions";
 import { GET_ALL_SUGGESTIONS } from "lib/queries/GET_ALL_SUGGESTIONS";
 import { surreal } from "lib/surreal";
 import { Suggestion as SuggestionI } from "lib/types";
+import { replaceVariablesInString } from "lib/utils/replaceVariablesInString";
 
 import { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
 
@@ -35,6 +36,7 @@ export function HomePage({ suggestions: fallbackData }: Props) {
 
 export async function getServerSideProps({
   req,
+  query,
 }: GetServerSidePropsContext): Promise<GetServerSidePropsResult<Props>> {
   try {
     const token = req.cookies["token"];
@@ -49,7 +51,14 @@ export async function getServerSideProps({
   }
 
   try {
-    const [result] = await surreal.query(GET_ALL_SUGGESTIONS);
+    const { field = "votes", order = "DESC" } = query as Record<string, string>;
+
+    const [result] = await surreal.query(
+      replaceVariablesInString(GET_ALL_SUGGESTIONS, {
+        field,
+        order,
+      }),
+    );
 
     if (
       result.status === "ERR" ||

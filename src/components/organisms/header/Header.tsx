@@ -1,12 +1,18 @@
 import { StarFilledIcon } from "@radix-ui/react-icons";
+import { useRouter } from "next/router";
+
 import { Button } from "components/atoms/button/Button";
 import { Card } from "components/atoms/card/Card";
 import { Dropdown } from "components/atoms/dropdown/Dropdown";
+
 import { useSuggestions } from "lib/hooks/useSuggestions";
-import { useRouter } from "next/router";
+import { useSearchParams } from "next/navigation";
 
 export function Header() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const params = searchParams.toString();
+
   const { data: suggestions } = useSuggestions();
 
   return (
@@ -22,22 +28,37 @@ export function Header() {
         options={[
           {
             label: "Most Upvotes",
-            value: "upvotes+",
+            value: new URLSearchParams({
+              field: "votes",
+              order: "DESC",
+            }).toString(),
           },
           {
             label: "Least Upvotes",
-            value: "upvotes-",
+            value: new URLSearchParams({
+              field: "votes",
+              order: "ASC",
+            }).toString(),
           },
           {
             label: "Most Comments",
-            value: "comments+",
+            value: new URLSearchParams({
+              field: "comments",
+              order: "DESC",
+            }).toString(),
           },
           {
             label: "Least Comments",
-            value: "comments-",
+            value: new URLSearchParams({
+              field: "comments",
+              order: "ASC",
+            }).toString(),
           },
         ]}
-        onChange={console.debug}
+        onChange={(value) => {
+          router.push(`${router.pathname}?${value}`);
+        }}
+        defaultValue={params}
       />
       <Button
         className="ml-auto"
