@@ -7,8 +7,12 @@ import { useCategories } from "lib/hooks/useCategories";
 import { useSuggestions } from "lib/hooks/useSuggestions";
 import { State } from "lib/types";
 import { getVariantFromState } from "components/organisms/roadmap-item/RoadmapItem";
+import { useRouter } from "next/router";
+import { useSearchParams } from "next/navigation";
 
 export function Sidebar() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const { data: categories } = useCategories();
   const { data: suggestions } = useSuggestions();
 
@@ -39,12 +43,35 @@ export function Sidebar() {
       <Card className="flex flex-row flex-wrap gap-x-2 gap-y-4">
         {categories && (
           <>
-            <Tag defaultChecked name="All" value="all" />
+            <Tag
+              checked={!searchParams.has("category")}
+              onChange={() => {
+                if (searchParams.has("category")) {
+                  const params = new URLSearchParams(searchParams.toString());
+                  params.delete("category");
+                  return router.push(`${router.pathname}?${params.toString()}`);
+                }
+              }}
+              name="All"
+              value="all"
+            />
             {categories.map((category) => (
               <Tag
                 key={category.id}
                 name={category.label}
                 value={category.id}
+                checked={searchParams.get("category") === category.id}
+                onChange={() => {
+                  const params = new URLSearchParams(searchParams.toString());
+                  params.set("category", category.id);
+                  return router.push(
+                    `${router.pathname}?${params.toString()}`,
+                    undefined,
+                    {
+                      scroll: false,
+                    },
+                  );
+                }}
               />
             ))}
           </>

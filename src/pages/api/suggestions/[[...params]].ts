@@ -29,16 +29,20 @@ export default async function handler(
       const params = req.query.params;
 
       if (params?.length !== 1) {
-        const { field = "votes", order = "DESC" } = req.query as Record<
-          string,
-          string
-        >;
+        const {
+          field = "votes",
+          order = "DESC",
+          category = "",
+        } = req.query as Record<string, string>;
 
         const [response] = await surreal.query(
           replaceVariablesInString(GET_ALL_SUGGESTIONS, {
             field,
             order,
           }),
+          {
+            category,
+          },
         );
 
         if (response.status === "ERR") {
