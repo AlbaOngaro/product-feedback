@@ -88,6 +88,10 @@ export function SuggestionForm({ mode, suggestion }: Props) {
         label="Feedback Title"
         description="Add a short, descriptive headline"
         value={data.title}
+        required
+        validations={{
+          valueMissing: "Field is required",
+        }}
         onChange={(e) =>
           setData((curr) => ({
             ...curr,
@@ -142,6 +146,10 @@ export function SuggestionForm({ mode, suggestion }: Props) {
             description: e.target.value,
           }))
         }
+        required
+        validations={{
+          valueMissing: "Field is required",
+        }}
       />
 
       <footer className="flex flex-row gap-4">
