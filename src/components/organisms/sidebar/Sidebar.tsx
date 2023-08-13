@@ -31,16 +31,16 @@ export function Sidebar() {
   );
 
   return (
-    <aside className="col-span-12 lg:col-span-3 flex flex-col gap-6">
+    <aside className="col-span-12 grid grid-cols-3 gap-6 lg:col-span-3 lg:flex lg:flex-col">
       <Card
         as="header"
         style={{ backgroundColor: "#ac99ff" }}
-        className="bg-gradient-mesh pt-16"
+        className="bg-gradient-mesh pt-16 flex flex-col"
       >
-        <h2 className="text-white text-xl	font-bold">Frontend Mentor</h2>
+        <h2 className="text-white text-xl	font-bold mt-auto">Frontend Mentor</h2>
         <p className="text-white ">Feedback Board</p>
       </Card>
-      <Card className="flex flex-row flex-wrap gap-x-2 gap-y-4">
+      <Card className="flex flex-row flex-wrap content-start gap-x-2 gap-y-4">
         {categories && (
           <>
             <Tag
