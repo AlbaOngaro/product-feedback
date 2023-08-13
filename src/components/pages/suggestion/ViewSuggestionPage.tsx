@@ -31,7 +31,7 @@ export function ViewSuggestionPage({ suggestion: fallbackData }: Props) {
   }
 
   return (
-    <main className="h-full w-full max-w-[730px] m-auto py-14 px-9 lg:py-24">
+    <main className="h-full w-full max-w-[730px] m-auto py-14 px-9 md:box-content lg:py-24">
       <header className="flex flex-row justify-between mb-6">
         <button
           onClick={() => router.back()}

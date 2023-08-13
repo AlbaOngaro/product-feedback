@@ -21,13 +21,13 @@ export function Header() {
       className="flex items-center rounded-none md:rounded-xl"
       variant="dark"
     >
-      <h3 className="text-white text-lg	font-bold inline-flex items-center gap-2">
+      <h3 className="hidden md:text-white md:text-lg	md:font-bold md:inline-flex md:items-center md:gap-2">
         <StarFilledIcon className="w-6 h-6" />
         {suggestions?.length || 0} Suggestions
       </h3>
 
       <Dropdown
-        className="ml-8"
+        className="md:ml-8"
         label="Sort By:"
         options={[
           {

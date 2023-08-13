@@ -25,7 +25,7 @@ export function EditSuggestionPage({ suggestion: fallbackData }: Props) {
   }
 
   return (
-    <main className="h-full w-full max-w-[540px] m-auto py-14 px-9 lg:py-24">
+    <main className="h-full w-full max-w-[540px] m-auto py-14 px-9 md:box-content lg:py-24">
       <header className="flex flex-row justify-between mb-16">
         <Link
           href={`/suggestions/${suggestion.id}`}

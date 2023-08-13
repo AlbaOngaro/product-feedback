@@ -28,7 +28,11 @@ export function HomePage({ suggestions: fallbackData }: Props) {
         <Header />
         {suggestions.length > 0 ? (
           suggestions.map((suggestion) => (
-            <Suggestion key={suggestion.id} {...suggestion} />
+            <Suggestion
+              key={suggestion.id}
+              className="mx-6 md:mx-0"
+              {...suggestion}
+            />
           ))
         ) : (
           <EmptyState />

@@ -152,21 +152,21 @@ export function SuggestionForm({ mode, suggestion }: Props) {
         }}
       />
 
-      <footer className="flex flex-row gap-4">
+      <footer className="flex flex-col-reverse gap-4 md:flex-row">
         {mode === "edit" && (
           <Button variant="danger" onClick={handleDelete}>
             Delete
           </Button>
         )}
         <Button
-          className="ml-auto"
+          className="md:ml-auto"
           variant="tertiary"
           onClick={() => setData(suggestion)}
         >
           Cancel
         </Button>
         <Button variant="primary" type="submit">
-          Add Feedback
+          {mode === "create" ? "Add Feedback" : "Save Changes"}
         </Button>
       </footer>
     </Form.Root>

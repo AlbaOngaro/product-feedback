@@ -7,7 +7,7 @@ export function EmptyState() {
   const router = useRouter();
 
   return (
-    <Card className="flex flex-col justify-center items-center py-28">
+    <Card className="flex flex-col justify-center items-center py-28 mx-6 md:mx-0">
       <picture className="block relative w-32	h-32">
         <Image
           fill

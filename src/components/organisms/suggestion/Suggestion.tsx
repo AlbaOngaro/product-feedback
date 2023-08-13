@@ -12,7 +12,9 @@ import { twMerge } from "lib/utils/twMerge";
 import { useSuggestion } from "lib/hooks/useSuggestion";
 import { useSuggestions } from "lib/hooks/useSuggestions";
 
-type Props = SuggestionI;
+interface Props extends SuggestionI {
+  className?: string;
+}
 
 export function Suggestion({
   id,
@@ -21,6 +23,7 @@ export function Suggestion({
   category,
   votes = [],
   comments = [],
+  className,
 }: Props) {
   const { user } = useAuth();
 
@@ -49,7 +52,12 @@ export function Suggestion({
 
   return (
     <Link href={`/suggestions/${id}`}>
-      <Card className="group grid grid-cols-[40px_minmax(0,_1fr)_44px] gap-10">
+      <Card
+        className={twMerge(
+          "group grid grid-cols-[40px_minmax(0,_1fr)_44px] gap-10",
+          className,
+        )}
+      >
         <button
           onClick={handleUpvote}
           className={twMerge(
