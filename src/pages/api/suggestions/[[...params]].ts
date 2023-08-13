@@ -5,12 +5,13 @@ import { GET_ALL_SUGGESTIONS } from "lib/queries/GET_ALL_SUGGESTIONS";
 import { GET_SUGGESTION } from "lib/queries/GET_SUGGESTION";
 import { Suggestion } from "lib/types";
 import { replaceVariablesInString } from "lib/utils/replaceVariablesInString";
+import { AUTH_COOKIE_ID } from "lib/constants";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const token = req.cookies["token"];
+  const token = req.cookies[AUTH_COOKIE_ID];
 
   if (!token) {
     res.status(401).end();

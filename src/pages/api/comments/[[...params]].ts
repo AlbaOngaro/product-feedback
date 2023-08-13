@@ -1,12 +1,13 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
 import { surreal } from "lib/surreal";
+import { AUTH_COOKIE_ID } from "lib/constants";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const token = req.cookies["token"];
+  const token = req.cookies[AUTH_COOKIE_ID];
 
   if (!token) {
     res.status(401).end();

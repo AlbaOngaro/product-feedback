@@ -14,6 +14,7 @@ import { replaceVariablesInString } from "lib/utils/replaceVariablesInString";
 import { GET_ALL_SUGGESTIONS } from "lib/queries/GET_ALL_SUGGESTIONS";
 import { useRouter } from "next/router";
 import { twMerge } from "lib/utils/twMerge";
+import { AUTH_COOKIE_ID } from "lib/constants";
 
 interface Props {
   suggestions: Suggestion[];
@@ -129,7 +130,7 @@ export async function getServerSideProps({
   query,
 }: GetServerSidePropsContext): Promise<GetServerSidePropsResult<Props>> {
   try {
-    const token = req.cookies["token"];
+    const token = req.cookies[AUTH_COOKIE_ID];
     await surreal.authenticate(token || "");
   } catch (error: unknown) {
     return {

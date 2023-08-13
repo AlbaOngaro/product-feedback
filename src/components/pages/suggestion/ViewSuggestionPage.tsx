@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 import { surreal } from "lib/surreal";
 import { GET_SUGGESTION } from "lib/queries/GET_SUGGESTION";
 import { useSuggestion } from "lib/hooks/useSuggestion";
+import { AUTH_COOKIE_ID } from "lib/constants";
 
 interface Props {
   suggestion: SuggestionI;
@@ -84,7 +85,7 @@ export async function getServerSideProps({
   query,
 }: GetServerSidePropsContext): Promise<GetServerSidePropsResult<Props>> {
   try {
-    const token = req.cookies["token"];
+    const token = req.cookies[AUTH_COOKIE_ID];
     await surreal.authenticate(token || "");
   } catch (error: unknown) {
     return {

@@ -77,7 +77,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
           body: JSON.stringify(credentials),
         }).then((res) => res.json());
 
-        router.push("/");
+        await router.push("/");
       } catch (error: unknown) {
         console.error(error);
       }
@@ -96,7 +96,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
           body: JSON.stringify(credentials),
         }).then((res) => res.json());
 
-        router.push("/");
+        await router.push("/");
       } catch (error: unknown) {
         console.error(error);
       }
@@ -107,7 +107,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
   const logout = useCallback(async () => {
     try {
       await fetch("/api/auth/logout");
-      router.push("/login");
+      await router.push("/login");
     } catch (error: unknown) {
       console.error(error);
     }

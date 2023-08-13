@@ -3,6 +3,7 @@ import { EmptyState } from "components/organisms/empty-state/EmptyState";
 import { Header } from "components/organisms/header/Header";
 import { Sidebar } from "components/organisms/sidebar/Sidebar";
 import { Suggestion } from "components/organisms/suggestion/Suggestion";
+import { AUTH_COOKIE_ID } from "lib/constants";
 import { useSuggestions } from "lib/hooks/useSuggestions";
 import { GET_ALL_SUGGESTIONS } from "lib/queries/GET_ALL_SUGGESTIONS";
 import { surreal } from "lib/surreal";
@@ -47,7 +48,7 @@ export async function getServerSideProps({
   query,
 }: GetServerSidePropsContext): Promise<GetServerSidePropsResult<Props>> {
   try {
-    const token = req.cookies["token"];
+    const token = req.cookies[AUTH_COOKIE_ID];
     await surreal.authenticate(token || "");
   } catch (error: unknown) {
     return {
