@@ -1,15 +1,22 @@
 import { RoadmapItem } from "components/organisms/roadmap-item/RoadmapItem";
 import { State, Suggestion } from "lib/types";
+import { twMerge } from "lib/utils/twMerge";
 
 interface Props {
   state: State;
   description: string;
   suggestions: Suggestion[];
+  className?: string;
 }
 
-export function RoadmapColumn({ state, description, suggestions }: Props) {
+export function RoadmapColumn({
+  state,
+  description,
+  suggestions,
+  className,
+}: Props) {
   return (
-    <div className="col-span-4">
+    <div className={twMerge("col-span-4", className)}>
       <header className="mb-8">
         <strong className="text-[#3A4374] text-lg">
           {state} ({suggestions.length})

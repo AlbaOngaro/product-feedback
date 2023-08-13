@@ -10,13 +10,7 @@ const config: Config = {
     extend: {
       backgroundImage: {
         "gradient-mesh":
-          "radial-gradient(at 36% 81%, hsla(351,76%,71%,1) 0px, transparent 50%),\
-          radial-gradient(at 99% 75%, hsla(296,88%,65%,1) 0px, transparent 50%),\
-          radial-gradient(at 76% 70%, hsla(261,84%,68%,1) 0px, transparent 50%),\
-          radial-gradient(at 70% 53%, hsla(63,72%,62%,1) 0px, transparent 50%),\
-          radial-gradient(at 54% 72%, hsla(67,73%,61%,1) 0px, transparent 50%),\
-          radial-gradient(at 89% 64%, hsla(176,60%,79%,1) 0px, transparent 50%),\
-          radial-gradient(at 89% 44%, hsla(350,84%,66%,1) 0px, transparent 50%)",
+          "radial-gradient(166.82% 166.82% at 103.90% -10.39%, #E84D70 0%, #A337F6 53.09%, #28A7ED 100%)",
       },
     },
     colors: {

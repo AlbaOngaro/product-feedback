@@ -11,14 +11,13 @@ import { useSearchParams } from "next/navigation";
 export function Header() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const params = searchParams.toString();
 
   const { data: suggestions } = useSuggestions();
 
   return (
     <Card
       as="header"
-      className="flex items-center rounded-none md:rounded-xl"
+      className="sticky top-[100px] flex items-center rounded-none md:relative md:top-0 md:rounded-xl"
       variant="dark"
     >
       <h3 className="hidden md:text-white md:text-lg	md:font-bold md:inline-flex md:items-center md:gap-2">
@@ -60,9 +59,23 @@ export function Header() {
           },
         ]}
         onChange={(value) => {
-          router.push(`${router.pathname}?${value}`);
+          const params = new URLSearchParams(searchParams.toString());
+          const newParams = new URLSearchParams(value);
+
+          for (const [key, value] of newParams.entries()) {
+            params.set(key, value);
+          }
+
+          router.push(`${router.pathname}?${params.toString()}`);
         }}
-        defaultValue={params}
+        defaultValue={
+          searchParams.has("field") && searchParams.has("order")
+            ? new URLSearchParams({
+                field: searchParams.get("field") as string,
+                order: searchParams.get("order") as string,
+              }).toString()
+            : undefined
+        }
       />
       <Button
         className="ml-auto"

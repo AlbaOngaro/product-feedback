@@ -36,7 +36,7 @@ export function EditSuggestionPage({ suggestion: fallbackData }: Props) {
       </header>
 
       <Card className="relative p-10 pt-12">
-        <span className="absolute -top-7 bg-gradient-mesh bg-purple w-14 h-14 rounded-full flex justify-center items-center text-white">
+        <span className="absolute -top-7 bg-gradient-mesh w-14 h-14 rounded-full flex justify-center items-center text-white">
           <Pencil1Icon className="h-6 w-6" />
         </span>
         <h3 className="text-2xl font-bold text-[#3A4374] mb-14">

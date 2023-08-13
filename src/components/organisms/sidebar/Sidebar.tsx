@@ -115,7 +115,7 @@ export function Sidebar() {
         as="header"
         style={{ backgroundColor: "#ac99ff" }}
         className={twMerge(
-          "bg-gradient-mesh rounded-none col-span-12 flex flex-row justify-between items-center relative md:hidden",
+          "bg-gradient-mesh sticky z-10 top-0 rounded-none col-span-12 flex flex-row justify-between items-center md:relative md:hidden",
           {
             "sticky z-10 top-0 left-0 right-0 after:content-[''] after:fixed after:bg-[#000] after:opacity-50 after:z-[-1] after:w-full after:h-full after:top-[100px] after:left-0 after:right-0":
               isSidebarOpen,
@@ -142,7 +142,7 @@ export function Sidebar() {
 
         <aside
           className={twMerge("hidden", {
-            "fixed right-0 top-[100px] max-w-[360px] w-full h-full flex flex-col gap-6 bg-ghost-white p-6":
+            "fixed right-0 top-[100px] max-w-[360px] w-full h-full flex flex-col gap-6 bg-ghost-white p-6 transition-all duration-300":
               isSidebarOpen,
           })}
         >
@@ -175,7 +175,9 @@ export function Sidebar() {
                       const params = new URLSearchParams(
                         searchParams.toString(),
                       );
+
                       params.set("category", category.id);
+
                       return router.push(
                         `${router.pathname}?${params.toString()}`,
                         undefined,

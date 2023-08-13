@@ -8,7 +8,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <AuthProvider>
       <SWRConfig>
-        <Component {...pageProps} />;
+        <Component {...pageProps} />
       </SWRConfig>
     </AuthProvider>
   );
