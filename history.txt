@@ -14,3 +14,10 @@ infor for db
 INFO FOR DB;
 DEFINE TABLE parent SCHEMALESS PERMISSIONS FOR select, update, create, delete WHERE true
 INFO FOR DB;
+---define SCHEMAFULL and PERMISSIONS\nDEFINE TABLE user SCHEMAFULL\n  PERMISSIONS\n    FOR select, update WHERE id = $auth.id, \n    FOR create, delete NONE;\n--- define FIELD's\nDEFINE FIELD user ON user TYPE string;\nDEFINE FIELD pass ON user TYPE string;\nDEFINE FIELD settings.* ON user TYPE object;\nDEFINE FIELD settings.marketing ON user TYPE string;\nDEFINE FIELD tags ON user TYPE array;\n--- define INDEX's\nDEFINE INDEX idx_user ON user COLUMNS user UNIQUE;\n\n-- define SCOPE\nDEFINE SCOPE allusers\n  -- the JWT session will be valid for 14 days\n  SESSION 14d\n  -- The optional SIGNUP clause will be run when calling the signup method for this scope\n  -- It is designed to create or add a new record to the database.\n  -- If set, it needs to return a record or a record id\n  -- The variables can be passed in to the signin method\n  SIGNUP ( CREATE user SET settings.marketing = $marketing, user = $user, pass = crypto::argon2::generate($pass), tags = $tags )\n  -- The optional SIGNIN clause will be run when calling the signin method for this scope\n  -- It is designed to check if a record exists in the database.\n  -- If set, it needs to return a record or a record id\n  -- The variables can be passed in to the signin method\n  SIGNIN ( SELECT * FROM user WHERE user = $user AND crypto::argon2::compare(pass, $pass) )\n  -- this optional clause will be run when calling the signup method for this scope\n
+DEFINE TABLE suggestion SCHEMALESS PERMISSIONS FOR select, update, create, delete WHERE true
+DEFINE TABLE comment SCHEMALESS PERMISSIONS FOR select, update, create, delete WHERE true
+DEFINE TABLE category SCHEMALESS PERMISSIONS FOR select, update, create, delete WHERE true
+DEFINE TABLE comments SCHEMALESS PERMISSIONS FOR select, update, create, delete WHERE true
+DEFINE TABLE parent SCHEMALESS PERMISSIONS FOR select, update, create, delete WHERE true
+SELECT * FROM user;

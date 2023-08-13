@@ -69,7 +69,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
   const register = useCallback(
     async (credentials: Credentials) => {
       try {
-        await fetch("/api/auth/login", {
+        await fetch("/api/auth/register", {
           method: "POST",
           headers: {
             "content-type": "application/json",
