@@ -16,7 +16,11 @@ export function Header() {
   const { data: suggestions } = useSuggestions();
 
   return (
-    <Card as="header" className="flex items-center	" variant="dark">
+    <Card
+      as="header"
+      className="flex items-center rounded-none md:rounded-xl"
+      variant="dark"
+    >
       <h3 className="text-white text-lg	font-bold inline-flex items-center gap-2">
         <StarFilledIcon className="w-6 h-6" />
         {suggestions?.length || 0} Suggestions

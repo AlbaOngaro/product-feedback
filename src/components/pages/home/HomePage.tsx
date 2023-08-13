@@ -22,7 +22,7 @@ export function HomePage({ suggestions: fallbackData }: Props) {
   });
 
   return (
-    <main className="h-full w-full max-w-[1110px] m-auto grid grid-cols-12 gap-8 py-14 px-9 lg:py-24">
+    <main className="h-full w-full max-w-[1110px] m-auto grid grid-cols-12 md:gap-8 md:py-14 md:px-9 lg:py-24">
       <Sidebar />
       <Container className="flex flex-col gap-6">
         <Header />
